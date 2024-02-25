@@ -5,24 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinancialCalculator"
         mc:Ignorable="d"
-        Title="Loan Amortization Calculator" Height="450" Width="800">
-    <Grid Background="#c9ffc4">
+        Title="Loan Amortization Calculator" Height="675" Width="1200">
+    <Grid Background="#272537">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="60*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+            
         </Grid.RowDefinitions>
-        
-        
 
-        <Label Content="Loan Amortization Calculator" x:Name="TestLabel" FontSize="30" Grid.ColumnSpan="3"
+
+
+        <Label Content="Loan Amortization Calculator" x:Name="TestLabel" FontSize="30" Foreground="White" Grid.ColumnSpan="3"
                HorizontalAlignment="Center" Height="80" VerticalAlignment="Top"/>
-        
+
+        <Label Content="" Grid.Row="2" Grid.Column="1" FontSize="36" Height="75" VerticalAlignment="Top" Foreground="White" x:Name="MonthlyPaymentLabel"/>
+        <Label Content="" Grid.Row="2" Grid.Column="1" FontSize="36" Height="75" VerticalAlignment="Bottom" Foreground="White" x:Name="MonthlyPaymentAmountLabel"/>
+
+
+
         <!-- Data field labels-->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -30,11 +37,11 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Label Content="Loan amount" FontSize="24" HorizontalAlignment="Right" VerticalContentAlignment="Top"/>
-            <Label Content="Interest rate" FontSize="24" Grid.Row="1" HorizontalAlignment="Right" VerticalContentAlignment="Top"/>
-            <Label Content="Term (years)" FontSize="24" Grid.Row="2" HorizontalAlignment="Right" VerticalContentAlignment="Center"/>
+            <Label Content="Loan amount" FontSize="24" Grid.Row="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" Foreground="White"/>
+            <Label Content="Interest rate" FontSize="24" Grid.Row="1" HorizontalAlignment="Right" VerticalContentAlignment="Top" Foreground="White"/>
+            <Label Content="Term (years)" FontSize="24" Grid.Row="2" HorizontalAlignment="Right" VerticalContentAlignment="Top" Foreground="White"/>
         </Grid>
-        
+
         <!-- Data fields -->
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -47,11 +54,11 @@
             <TextBox Grid.Row="1" BorderThickness="1" FontSize="14" x:Name="interestRateBox" Height="30"/>
             <TextBox Grid.Row="2" BorderThickness="1" FontSize="14" x:Name="termBox" Height="30"/>
         </Grid>
-        
+
         <!-- Text box -->
-        <ListView Grid.Row="2" Grid.ColumnSpan="3" x:Name="AmortizationListView" Background="#c9ffc4" FontSize="16">
+        <ListView Grid.Row="3" Grid.ColumnSpan="3" x:Name="AmortizationListView" Background="#272537" Foreground="White" FontSize="16" SelectionChanged="AmortizationListView_SelectionChanged">
             <ListView.View>
-            <GridView AllowsColumnReorder="False">
+                <GridView AllowsColumnReorder="False">
                     <GridViewColumn Header="Payment Number" Width="200" DisplayMemberBinding="{Binding number}">
                     </GridViewColumn>
                     <GridViewColumn Header="Principal" Width="200" DisplayMemberBinding="{Binding principal}">
@@ -63,7 +70,19 @@
 
                 </GridView>
             </ListView.View>
-
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <!-- Make text visible against background when selected or hovered over-->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="black" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
         <Grid Grid.Column="2" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -79,7 +98,7 @@
                     FontSize="24" Height="40" Width="150"
                     Background="#e87474" Click="ClearButton_Click"/>
         </Grid>
-        
+
     </Grid>
-    
+
 </Window>
